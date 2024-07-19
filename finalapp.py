@@ -1,8 +1,6 @@
 import streamlit as st 
 import os 
 from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings,ChatNVIDIA
-from langchain_community.document_loaders import WebBaseLoader
-from langchain.embeddings import OllamaEmbeddings
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
