@@ -8,10 +8,6 @@ This project is a document question-and-answer system utilizing Nvidia's NIM for
 - **Question Answering**: Uses the model **meta/llama3-70b-instruct** to answer questions based on document content.
 - **Document Similarity Search**: Retrieves and displays relevant document chunks in response to user queries.
 
-## Deployment
-
-You can access the live demo of the application here: [Nvidia NIM Document Q&A System](https://zehowrld-rag-document-q-a-with-nvidia-nim-and-l-finalapp-q7cmlq.streamlit.app/).
-
 ## Installation
 
 ### Prerequisites
@@ -36,7 +32,7 @@ pip install openai python-dotenv langchain_nvidia_ai_endpoints langchain_communi
     NVIDIA_API_KEY=your_nvidia_api_key_here
     ```
 
-## Usage
+## Usage and Deployment
 
 1. **Run the Streamlit Application:**
 
