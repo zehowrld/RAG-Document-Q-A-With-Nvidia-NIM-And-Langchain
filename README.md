@@ -8,8 +8,6 @@ This project is a document question-and-answer system utilizing Nvidia's NIM for
 - **Question Answering**: Uses the model **meta/llama3-70b-instruct** to answer questions based on document content.
 - **Document Similarity Search**: Retrieves and displays relevant document chunks in response to user queries.
 
-## Installation
-
 ### Prerequisites
 
 - Python 3.8+
@@ -44,9 +42,17 @@ pip install openai python-dotenv langchain_nvidia_ai_endpoints langchain_communi
    
    Open your web browser and navigate to `http://localhost:8501` to interact with the application.
 
+### Sample Questions to Try
+
+1. **Differences in the Uninsured Rate in the 25 Most Populous Metropolitan Areas in 2022**
+   
+2. **Changes in Public Coverage by State from 2021 to 2022**:
+   
+3. **Changes in Private Health Insurance Coverage by State from 2021 to 2022**
+
 ## Code Explanation
 
-- **app.py**: The main application file, which includes:
+- **finalapp.py**: The main application file, which includes:
   - Initialization of Nvidia's NIM model.
   - Definition of functions for document embedding and question answering.
   - Streamlit interface for user interaction.
