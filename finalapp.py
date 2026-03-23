@@ -12,15 +12,34 @@ from langchain_community.vectorstores import FAISS
 
 # Configuration
 load_dotenv()
-NVIDIA_KEY = os.getenv("NVIDIA_API_KEY")
 
-if not NVIDIA_KEY:
-    st.error("❌ NVIDIA_API_KEY not found! Please check your .env file.")
+# Streamlit Interface
+st.set_page_config(page_title="Nvidia NIM RAG", page_icon="🛡️",layout="wide")
+st.title("🚀 RAG Q&A With Nvidia NIM & Langchain")
+
+# Sidebar for project controls
+st.sidebar.title("Project Controls")
+
+# Api Key 
+api_key_input = st.sidebar.text_input("Enter your NVIDIA API Key", type="password", help="Get your key from build.nvidia.com")
+env_key = os.getenv("NVIDIA_API_KEY")
+
+# Determine which key to use
+final_api_key = api_key_input if api_key_input else env_key
+
+if not final_api_key:
+    st.sidebar.error("❌ No API Key detected. Please enter one or check .env")
 else:
-    os.environ["NVIDIA_API_KEY"] = NVIDIA_KEY
+    os.environ["NVIDIA_API_KEY"] = final_api_key
+    if api_key_input:
+        st.sidebar.success("✅ Using User-Provided Key")
+    else:
+        st.sidebar.info("✅ Using System Environment Key")
 
 # Initialize Model
-llm = ChatNVIDIA(model="meta/llama3-70b-instruct")  ##NVIDIA NIM Inferencing
+if final_api_key:
+
+    llm = ChatNVIDIA(model="meta/llama3-70b-instruct")  ##NVIDIA NIM Inferencing
 
 # Feature: Document Embedding Logic
 def vector_embedding():
@@ -48,25 +67,25 @@ def vector_embedding():
 
         st.success(f"✅ Success! Created {len(final_chunks)} safe chunks from your documents.")
 
-# Streamlit Interface
-st.set_page_config(page_title="Nvidia NIM RAG", page_icon="🛡️",layout="wide")
-st.title("🚀 RAG Q&A With Nvidia NIM & Langchain")
-
-# Sidebar for project controls
-st.sidebar.title("Project Controls")
+# Sidebar Interface Info
 st.sidebar.markdown("---")
 st.sidebar.write("**LLM:** meta/llama3-70b-instruct")
 st.sidebar.write("**Vector Store:** FAISS")
-st.sidebar.info("This system analyzes document context using Nvidia's high-performance NIM.")
 
 if st.sidebar.button("Initialize Document Embedding"):
-    vector_embedding()
+    if not final_api_key:
+        st.error("Please provide an API key first!")
+    else:
+        vector_embedding()
 
 # User Input section
 prompt1 = st.text_input("Enter Your Question From Documents",placeholder="e.g., What was the uninsured rate in 2022?")
 
 if prompt1:
-    if "vectors" not in st.session_state:
+    if not final_api_key:
+        st.error("API Key missing. Cannot process request.")
+
+    elif "vectors" not in st.session_state:
         st.warning("Please initialize the document embeddings from the sidebar.")
     else:
         try:
@@ -96,19 +115,11 @@ if prompt1:
             document_chain = create_stuff_documents_chain(llm, prompt)
             retriever = st.session_state.vectors.as_retriever(search_kwargs={"k": 5})
             retrieval_chain = create_retrieval_chain(retriever, document_chain)
-
-            # Execute Inference
-            start = time.process_time()
-            response = retrieval_chain.invoke({'input':prompt1})
-
-            # Execute Inference with Visual Feedback
-            
-            start = time.perf_counter() # More accurate for real-world latency
-            
+        
             with st.spinner("🤖 Thinking..."):
-                response = retrieval_chain.invoke({'input': prompt1})
-            
-            end = time.perf_counter()
+                start = time.perf_counter()
+                response = retrieval_chain.invoke({'input': prompt1})  
+                end = time.perf_counter()
 
             # Display Results
             col1, col2 = st.columns([3,1])
