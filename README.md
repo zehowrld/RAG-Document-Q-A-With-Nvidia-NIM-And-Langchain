@@ -75,9 +75,3 @@ Check out the live application here: [rag-document-q-a-with-nvidia.streamlit.app
       * *Changes in Public Coverage by State from 2021 to 2022?*
 
 -----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
-
------
