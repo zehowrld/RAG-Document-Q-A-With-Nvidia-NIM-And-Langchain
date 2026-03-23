@@ -1,80 +1,77 @@
-# RAG-Document-Q&A-With-Nvidia-NIM-And-Langchain
+# 🛡️ RAG Document Q\&A with NVIDIA NIM & LangChain
 
-This project is a document question-and-answer system utilizing Nvidia's NIM for advanced language modeling and **FAISS** for vector storage and retrieval. The system allows users to interact with documents through a web interface built with Streamlit, providing accurate responses based on the provided context.
+[](https://rag-document-q-a-with-nvidia.streamlit.app/)
 
-## Features
+An advanced **Retrieval-Augmented Generation (RAG)** system that enables conversational intelligence over complex PDF documents. This project leverages **NVIDIA NIM** (NVIDIA Inference Microservices) for state-of-the-art language modeling and **FAISS** for high-performance vector similarity search.
 
-- **Document Embedding**: Converts documents into vector representations using Nvidia's embeddings.
-- **Question Answering**: Uses the model **meta/llama3-70b-instruct** to answer questions based on document content.
-- **Document Similarity Search**: Retrieves and displays relevant document chunks in response to user queries.
+### 🔗 Live Demo
 
-### Prerequisites
+Check out the live application here: [rag-document-q-a-with-nvidia.streamlit.app](https://rag-document-q-a-with-nvidia.streamlit.app/)
 
-- Python 3.8+
-- NVIDIA API Key (add to `.env` file)
+-----
 
-### Required Libraries
+## 🚀 Features
 
-Ensure you have the following libraries installed. You can use `pip` to install them:
+  * **NVIDIA NIM Integration:** Utilizes `meta/llama3-70b-instruct` for highly accurate, context-aware responses.
+  * **Optimized Vector Embeddings:** Uses `nvidia/nv-embedqa-e5-v5` with token-based splitting to handle dense PDF data.
+  * **Dynamic Document Processing:** Built-in support for multi-page PDFs.
+  * **Similarity Search Transparency:** Displays the exact source chunks and page metadata used to generate each answer.
+  * **Real-time Performance Metrics:** Tracks inference latency and chunk retrieval counts.
 
-```bash
-pip install openai python-dotenv langchain_nvidia_ai_endpoints langchain_community faiss-cpu streamlit pypdf
-```
+-----
 
-### Environment Setup
+## 🛠️ Tech Stack
 
-1. Create a `.env` file in the root directory of your project.
-2. Add your NVIDIA API Key to the `.env` file:
+  * **LLM:** NVIDIA NIM (`meta/llama3-70b-instruct`)
+  * **Embeddings:** NVIDIA NIM (`nvidia/nv-embedqa-e5-v5`)
+  * **Orchestration:** LangChain & LangChain-Classic
+  * **Vector Database:** FAISS (Facebook AI Similarity Search)
+  * **Interface:** Streamlit
+  * **Data Handling:** PyPDF, Tiktoken
 
-    ```env
-    NVIDIA_API_KEY=your_nvidia_api_key_here
+-----
+
+## 📋 Prerequisites
+
+  * Python 3.8+
+  * An **NVIDIA API Key** (Generate one at [NVIDIA Build](https://build.nvidia.com/))
+  * PDF documents placed in the `/data` directory.
+
+-----
+
+## ⚙️ Setup & Installation
+
+1.  **Clone the Repository:**
+
+    ```bash
+    git clone https://github.com/zehowrld/RAG-Document-Q-A-With-Nvidia-NIM-And-Langchain.git
+    cd RAG-Document-Q-A-With-Nvidia-NIM-And-Langchain
     ```
 
-## Usage and Deployment
+2.  **Install Dependencies:**
 
-1. **Run the Streamlit Application:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
+3.  **Configure Environment Variables:**
+    Create a `.env` file in the root directory:
+
+    ```env
+    NVIDIA_API_KEY=nvapi-your-key-here
+    ```
+
+-----
+
+## 🖥️ Usage
+
+1.  Launch the Streamlit application:
     ```bash
     streamlit run finalapp.py
     ```
+2.  Click **"Initialize Document Embedding"** in the sidebar to build the knowledge base.
+3.  Ask questions like:
+      * *Differences in the Uninsured Rate in the 25 Most Populous Metropolitan Areas in 2022?*
+      * *Changes in Public Coverage by State from 2021 to 2022?*
 
-2. **Access the Application:**
-   
-   Open your web browser and navigate to `http://localhost:8501` to interact with the application.
-
-### Sample Questions to Try
-
-1. **Differences in the Uninsured Rate in the 25 Most Populous Metropolitan Areas in 2022**
-   
-2. **Changes in Public Coverage by State from 2021 to 2022**:
-   
-3. **Changes in Private Health Insurance Coverage by State from 2021 to 2022**
-
-## Code Explanation
-
-- **finalapp.py**: The main application file, which includes:
-  - Initialization of Nvidia's NIM model.
-  - Definition of functions for document embedding and question answering.
-  - Streamlit interface for user interaction.
-
-- **vector_embedding()**: Prepares and stores document embeddings for later retrieval.
-
-- **Streamlit Interface:**
-  - Input field for users to submit questions.
-  - Button to trigger document embedding.
-  - Display of answers and document similarity search results.
-
-## Contributing
-
-Feel free to fork the repository and submit pull requests. For issues or suggestions, please open an issue on the GitHub repository.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any queries or further information, please contact at [hiteshnegi08@gmail.com].
-
----
-
+-----
